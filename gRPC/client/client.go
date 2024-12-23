@@ -16,7 +16,7 @@ type GRPCClient struct {
 	pasetoMaker *paseto.PasetoMaker
 }
 
-func newGRPCClient(cfg *config.Config) (*GRPCClient, error) {
+func NewGRPCClient(cfg *config.Config) (*GRPCClient, error) {
 	c := new(GRPCClient)
 
 	if client, err := grpc.NewClient(cfg.GRPC.URL, grpc.WithTransportCredentials(insecure.NewCredentials())); err != nil {

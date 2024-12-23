@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"high-traffic-practice/config"
+	"high-traffic-practice/gRPC/client"
 	"high-traffic-practice/network"
 	"high-traffic-practice/repository"
 	"high-traffic-practice/service"
@@ -10,6 +11,7 @@ import (
 type App struct {
 	cfg *config.Config
 
+	gRPCClient *client.GRPCClient
 	service    *service.Service
 	repository *repository.Repository
 	network    *network.Network
@@ -20,11 +22,15 @@ func NewApp(cfg *config.Config) {
 
 	var err error
 
+	client.NewGRPCClient(cfg)
+
 	if a.repository, err = repository.NewRepository(cfg); err != nil {
 		panic(err)
 	} else if a.service, err = service.NewService(cfg, a.repository); err != nil {
 		panic(err)
-	} else if a.network, err = network.NewNetwork(cfg, a.service); err != nil {
+	} else if a.gRPCClient, err = client.NewGRPCClient(cfg); err != nil {
+		panic(err)
+	} else if a.network, err = network.NewNetwork(cfg, a.service, a.gRPCClient); err != nil {
 		panic(err)
 	} else {
 		a.network.StartServer()

@@ -17,7 +17,7 @@ type GRPCServer struct {
 	tokenVerifyMap map[string]*auth.AuthData
 }
 
-func newGRPCServer(cfg *config.Config) error {
+func NewGRPCServer(cfg *config.Config) error {
 	if listen, err := net.Listen("tcp", cfg.GRPC.URL); err != nil {
 		return err
 	} else {
