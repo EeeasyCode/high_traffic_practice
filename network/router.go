@@ -20,6 +20,9 @@ type Network struct {
 func NewNetwork(cfg *config.Config, service *service.Service, gRPCClient *client.GRPCClient) (*Network, error) {
 	r := &Network{cfg: cfg, service: service, engin: gin.New(), gRPCClient: gRPCClient}
 
+	r.engin.POST("/login", r.Login)
+
+	r.engin.GET("/verify", r.verifyLogin(), r.verify)
 	return r, nil
 }
 

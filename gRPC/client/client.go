@@ -52,7 +52,7 @@ func (g *GRPCClient) CreateAuth(name string) (*auth.AuthData, error) {
 	}
 }
 
-func (g *GRPCClient) verifyAuth(token string) (*auth.Verify, error) {
+func (g *GRPCClient) VerifyAuth(token string) (*auth.Verify, error) {
 	if res, err := g.authClient.VerifyAuth(context.Background(), &auth.VerifyTokenRequest{Token: token}); err != nil {
 		return nil, err
 	} else {
