@@ -3,6 +3,7 @@ package paseto
 import (
 	"github.com/o1egl/paseto"
 	"high-traffic-practice/config"
+	auth "high-traffic-practice/gRPC/proto"
 )
 
 type PasetoMaker struct {
@@ -10,14 +11,14 @@ type PasetoMaker struct {
 	Key []byte
 }
 
-func newPastoMaker(cfg *config.Config) *PasetoMaker {
+func NewPasetoMaker(cfg *config.Config) *PasetoMaker {
 	return &PasetoMaker{
 		Pt:  paseto.NewV2(),
 		Key: []byte(cfg.Paseto.Key),
 	}
 }
 
-func (m *PasetoMaker) CreateNewToken() (string, error) {
+func (m *PasetoMaker) CreateNewToken(auth *auth.AuthData) (string, error) {
 	return "", nil
 }
 
